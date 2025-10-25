@@ -27,6 +27,6 @@ export async function getIndex(req: Request, res: Response) {
 		});
 	} catch (err) {
 		console.error(err);
-		res.status(500);
+		res.sendStatus(500);
 	}
 }

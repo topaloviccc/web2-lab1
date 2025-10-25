@@ -1,10 +1,9 @@
 doctype html 
 html
     head 
-        title Loto-app
+        title Loto app
     body 
         h1 Zaigraj Loto 6/45 i osvoji nagrade 
-
 
         if isAuthenticated 
             p welcome #{user.nickname || user.name} 
@@ -16,9 +15,12 @@ html
         if current_round 
             h2 Trenutno kolo - broj uplaćenih listića: #{noOfTickets}
             if !is_active
-                p Kolo je neaktivno - uplate nisu moguće
+                p Kolo je neaktivno - uplate su zatvorene
                 if drawn_numbers    
                     p Izvučeni su brojevi #{drawn_numbers}
+                else 
+                    p Brojevi za trenutno kolo još nisu izvučeni
             else    
-                p Kolo je aktivno - uplati listić
+                p Kolo je aktivno - uplati listić 
+                a(href="/play-ticket") Uplati
             

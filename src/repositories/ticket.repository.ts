@@ -11,9 +11,11 @@ export async function createTicket(
 	);
 
 	const ticket = result.rows[0];
-	// const baseURL = "http://localhost:3000"; // env !! alo kuci
-	// const ticketURL = `${baseURL}/ticket/${ticket.id}`;
+	return ticket;
+}
 
-	// return QRCode.toDataURL(ticketURL);
+export async function findTicket(id: string) {
+	const result = await db.query("SELECT * FROM ticket WHERE id=$1", [id]);
+	const ticket = result.rows[0];
 	return ticket;
 }

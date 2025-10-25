@@ -35,3 +35,9 @@ export async function getTicketNo(id: number) {
 	);
 	return ticketNo.rows[0].tickets;
 }
+
+export async function getRoundById(id: number) {
+	const result = await db.query("SELECT * FROM round WHERE id=$1", [id]);
+	const round = result.rows[0];
+	return round;
+}

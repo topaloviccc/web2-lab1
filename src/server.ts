@@ -3,6 +3,7 @@ import pkg from "express-openid-connect";
 const { auth, requiresAuth } = pkg;
 import roundRoutes from "./routes/round.routes.js";
 import indexRoutes from "./routes/index.routes.js";
+import ticketRoutes from "./routes/ticket.routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { getCurrentRound } from "./repositories/round.repository.js";
@@ -13,6 +14,10 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(express.json());
+console.log("Static files served from:", path.join(__dirname, "public"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
@@ -29,17 +34,7 @@ const config = {
 app.use(auth(config));
 app.use("/", roundRoutes);
 app.use("/", indexRoutes);
-
-// app.get("/", async (req, res) => {
-// 	console.log(req.oidc.user);
-// 	res.render("index", {
-// 		user: req.oidc.user,
-// 		isAuthenticated: req.oidc.isAuthenticated(),
-// 		currentRound: getCurrentRound(),
-// 	});
-
-// 	res.send(req.oidc.isAuthenticated() ? "Logged in yay" : "Logged out");
-// });
+app.use("/", ticketRoutes);
 
 app.get("/profile", requiresAuth(), (req, res) => {
 	res.send(JSON.stringify(req.oidc.user));

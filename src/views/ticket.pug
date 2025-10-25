@@ -1,0 +1,15 @@
+doctype html 
+html
+    head 
+        title Your ticket
+    body 
+        h1 Listić br. #{ticket.id}
+        h2 Podatci o listiću
+        p Broj dokumenta: #{ticket.document_no}, 
+        p Uplaćeni brojevi: #{ticket.numbers}
+        h2 Podatci o kolu 
+        p Kolo br. #{ticketRound.id}
+        if ticketRound.numbers  
+            p Izvučeni su brojevi #{ticketRound.numbers}
+        else 
+            p Brojevi za ovo kolo još nisu izvučeni.   
