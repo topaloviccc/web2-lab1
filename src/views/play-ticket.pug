@@ -3,15 +3,18 @@ html
     head 
         title Play a ticket
     body 
-        h1 Uplati listić za kolo
-        form(id="form" action="/ticket-submit" method="POST")
-            div 
-                label(for="round_id") Uplata za kolo current_round.id:
-            div  
-                label(for="document_no") Broj osobne iskaznice ili putovnice: 
-                input(type="text" name="document_no" id="document_no" required)
-            div 
-                label(for="numbers") Unesite brojeve međusobno odvojene zarezom: 
-                input(type="text" name="numbers" id="numbers" required)    
-            button(type="submit") Odigraj 
+        if current_round.is_active
+            h1 Uplati listić za kolo
+            form(id="form" action="/ticket-submit" method="POST")
+                div 
+                    label(for="round_id") Uplata za kolo current_round.id:
+                div  
+                    label(for="document_no") Broj osobne iskaznice ili putovnice: 
+                    input(type="text" name="document_no" id="document_no" required)
+                div 
+                    label(for="numbers") Unesite brojeve međusobno odvojene zarezom: 
+                    input(type="text" name="numbers" id="numbers" required)    
+                button(type="submit") Odigraj 
+        else 
+            h1 Uplata listića trenutno nije moguća
     script(src="/js/validate-form.js")          

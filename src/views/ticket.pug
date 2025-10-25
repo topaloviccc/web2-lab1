@@ -9,7 +9,11 @@ html
         p Uplaćeni brojevi: #{ticket.numbers}
         h2 Podatci o kolu 
         p Kolo br. #{ticketRound.id}
-        if ticketRound.numbers  
-            p Izvučeni su brojevi #{ticketRound.numbers}
+        if !ticketRound.is_active 
+            p Kolo je zatvoreno.
+            if ticketRound.drawn_numbers  
+                p Izvučeni su brojevi #{ticketRound.drawn_numbers}
+            else 
+                p Brojevi za ovo kolo još nisu izvučeni.   
         else 
-            p Brojevi za ovo kolo još nisu izvučeni.   
+            p Kolo je još uvijek aktivno.

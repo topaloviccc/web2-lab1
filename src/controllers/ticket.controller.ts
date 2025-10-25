@@ -5,10 +5,12 @@ import {
 	getRoundById,
 } from "../repositories/round.repository.js";
 import QRCode from "qrcode";
+import { generateQRCode } from "../helper/generateQRCode.js";
 
 export async function getPlayTicket(req: Request, res: Response) {
 	try {
-		res.render("play-ticket");
+		const current_round = await getCurrentRound();
+		res.render("play-ticket", { current_round });
 	} catch (err) {
 		console.error(err);
 		res.sendStatus(500);
@@ -30,15 +32,29 @@ export async function createQRTicket(req: Request, res: Response) {
 				current_round.id
 			);
 		}
-		console.log("Spremit cu ovo u bazy");
 
 		const baseURL = "http://localhost:3000"; // env !!
 		const ticketURL = `${baseURL}/ticket/${ticket.id}`;
 
-		const qr = await QRCode.toDataURL(ticketURL);
+		const qr = await generateQRCode(ticketURL);
 		res.render("ticket-qr", { qrCode: qr });
 	} catch (err) {
 		console.error(err);
+		res.sendStatus(500);
+	}
+}
+
+export async function getQRTicket(req: Request, res: Response) {
+	try {
+		const ticketId = req.params.id;
+		const baseURL = "http://localhost:3000"; // env !!
+		const ticketURL = `${baseURL}/ticket/${ticketId}`;
+
+		const qr = await generateQRCode(ticketURL);
+		res.render("ticket-qr", { qrCode: qr });
+	} catch (err) {
+		console.error(err);
+		res.sendStatus(500);
 	}
 }
 
@@ -47,7 +63,6 @@ export async function getTicket(req: Request, res: Response) {
 		const ticketId = req.params.id;
 		const ticket = await findTicket(ticketId);
 		const ticketRound = await getRoundById(ticket.round_id);
-
 		res.render("ticket", { ticket, ticketRound });
 	} catch (err) {
 		console.error(err);
