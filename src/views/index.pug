@@ -1,0 +1,24 @@
+doctype html 
+html
+    head 
+        title Loto-app
+    body 
+        h1 Zaigraj Loto 6/45 i osvoji nagrade 
+
+
+        if isAuthenticated 
+            p welcome #{user.nickname || user.name} 
+            p email #{user.email}
+            a(href="/logout") Log out
+        else 
+            a(href="/login") Log in
+        
+        if current_round 
+            h2 Trenutno kolo - broj uplaćenih listića: #{noOfTickets}
+            if !is_active
+                p Kolo je neaktivno - uplate nisu moguće
+                if drawn_numbers    
+                    p Izvučeni su brojevi #{drawn_numbers}
+            else    
+                p Kolo je aktivno - uplati listić
+            

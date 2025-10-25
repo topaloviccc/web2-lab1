@@ -1,21 +1,49 @@
 import express from "express";
-import db from "./config/db.config.js";
-import { createNewRound } from "./repositories/round.repository.js";
+import pkg from "express-openid-connect";
+const { auth, requiresAuth } = pkg;
 import roundRoutes from "./routes/round.routes.js";
+import indexRoutes from "./routes/index.routes.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import { getCurrentRound } from "./repositories/round.repository.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.get("/", async (req, res) => {
-	try {
-		const result = await db.query("SELECT * FROM round;");
-		res.json(result.rows);
-	} catch (err) {
-		console.log(err);
-	}
-});
-
 app.use(express.json());
-app.use("/api", roundRoutes);
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
+
+// pazi na ovo u .env
+const config = {
+	authRequired: false,
+	auth0Logout: true,
+	secret: process.env.SECRET,
+	clientID: process.env.CLIENT_ID,
+	baseURL: "http://localhost:3000",
+	issuerBaseURL: "https://dev-yve8c5e30eo5lzlq.us.auth0.com",
+};
+
+app.use(auth(config));
+app.use("/", roundRoutes);
+app.use("/", indexRoutes);
+
+// app.get("/", async (req, res) => {
+// 	console.log(req.oidc.user);
+// 	res.render("index", {
+// 		user: req.oidc.user,
+// 		isAuthenticated: req.oidc.isAuthenticated(),
+// 		currentRound: getCurrentRound(),
+// 	});
+
+// 	res.send(req.oidc.isAuthenticated() ? "Logged in yay" : "Logged out");
+// });
+
+app.get("/profile", requiresAuth(), (req, res) => {
+	res.send(JSON.stringify(req.oidc.user));
+});
 
 app.listen(process.env.PORT, () => {
 	console.log("Server is running on port 3000");

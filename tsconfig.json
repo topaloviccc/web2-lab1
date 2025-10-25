@@ -9,6 +9,7 @@
 		"declaration": true,
 		"strictNullChecks": true,
 		"noImplicitAny": true,
-		"noEmitOnError": true
+		"noEmitOnError": true,
+		"skipLibCheck": true // ako nes faila ovo je razlog
 	}
 }

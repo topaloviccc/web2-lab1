@@ -27,3 +27,11 @@ export async function storeRoundResults(id: number, drawn_numbers: number[]) {
 		id,
 	]);
 }
+
+export async function getTicketNo(id: number) {
+	const ticketNo = await db.query(
+		"SELECT COUNT(*) AS tickets FROM ticket WHERE round_id=$1",
+		[id]
+	);
+	return ticketNo.rows[0].tickets;
+}
