@@ -7,7 +7,7 @@ html
             h1 Uplati listić za kolo
             form(id="form" action="/ticket-submit" method="POST")
                 div 
-                    label(for="round_id") Uplata za kolo current_round.id:
+                    label(for="round_id") Uplata za kolo br. #{current_round.id}:
                 div  
                     label(for="document_no") Broj osobne iskaznice ili putovnice: 
                     input(type="text" name="document_no" id="document_no" required)

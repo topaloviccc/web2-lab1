@@ -6,7 +6,6 @@ import indexRoutes from "./routes/index.routes.js";
 import ticketRoutes from "./routes/ticket.routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getCurrentRound } from "./repositories/round.repository.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
