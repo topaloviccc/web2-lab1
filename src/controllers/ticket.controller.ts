@@ -38,7 +38,7 @@ export async function createQRTicket(req: Request, res: Response) {
 		const ticketURL = `${baseURL}/ticket/${ticket.id}`;
 
 		const qr = await generateQRCode(ticketURL);
-		res.render("ticket-qr", { qrCode: qr });
+		res.redirect(`/play-ticket/qr:${ticket.id}`);
 	} catch (err) {
 		console.error(err);
 		res.sendStatus(500);

@@ -25,7 +25,7 @@ const config = {
 	auth0Logout: true,
 	secret: process.env.SECRET,
 	clientID: process.env.CLIENT_ID,
-	baseURL: externalUrl || `https://localhost:${port}`,
+	baseURL: externalUrl || `http://localhost:${port}`,
 	issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}/`,
 };
 
@@ -41,7 +41,7 @@ if (externalUrl) {
 			outside on ${externalUrl}`);
 	});
 } else {
-	app.listen(process.env.PORT, () => {
+	app.listen(port, () => {
 		console.log("Server is running on port 3000");
 	});
 }
