@@ -1,19 +1,23 @@
 doctype html 
 html
     head 
-        title Your ticket
+        title Your ticket ♡
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/css/global.css")
     body 
-        h1 Listić br. #{ticket.id}
-        h2 Podatci o listiću
-        p Broj dokumenta: #{ticket.document_no}, 
-        p Uplaćeni brojevi: #{ticket.numbers}
-        h2 Podatci o kolu 
-        p Kolo br. #{ticketRound.id}
-        if !ticketRound.is_active 
-            p Kolo je zatvoreno.
-            if ticketRound.drawn_numbers  
-                p Izvučeni su brojevi #{ticketRound.drawn_numbers}
-            else 
-                p Brojevi za ovo kolo još nisu izvučeni.   
-        else 
-            p Kolo je još uvijek aktivno.
+        .container.mt-5
+            h1 Listić br. #{ticket.id}
+            .box.w-50
+                h2 Podatci o listiću
+                p Broj dokumenta: #{ticket.document_no} 
+                p Uplaćeni brojevi: #{ticket.numbers}
+                h2 Podatci o kolu 
+                p Kolo br. #{ticketRound.id}
+                if !ticketRound.is_active 
+                    p Kolo je zatvoreno.
+                    if ticketRound.drawn_numbers  
+                        p Izvučeni su brojevi #{ticketRound.drawn_numbers}
+                    else 
+                        p Brojevi za ovo kolo još nisu izvučeni.   
+                else 
+                    p Kolo je još uvijek aktivno.

@@ -1,0 +1,27 @@
+body {
+	background-color: #efcac3;
+	font-family: "Segoe UI";
+}
+
+.box {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	margin-top: 20px;
+}
+
+.btn-custom:hover {
+	background-color: #efcac3;
+	color: #333;
+	border: none;
+}
+
+.btn-custom {
+	background-color: #a86452;
+	color: white;
+}
+
+h1 {
+	color: #a75e4a;
+	margin-bottom: 2rem;
+}
