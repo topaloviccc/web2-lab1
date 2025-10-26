@@ -6,6 +6,7 @@ import {
 } from "../repositories/round.repository.js";
 import QRCode from "qrcode";
 import { generateQRCode } from "../helper/generateQRCode.js";
+import { externalUrl, port } from "../config/config.js";
 
 export async function getPlayTicket(req: Request, res: Response) {
 	try {
@@ -33,7 +34,7 @@ export async function createQRTicket(req: Request, res: Response) {
 			);
 		}
 
-		const baseURL = "http://localhost:3000"; // env !!
+		const baseURL = externalUrl || `https://localhost:${port}`;
 		const ticketURL = `${baseURL}/ticket/${ticket.id}`;
 
 		const qr = await generateQRCode(ticketURL);
@@ -47,7 +48,7 @@ export async function createQRTicket(req: Request, res: Response) {
 export async function getQRTicket(req: Request, res: Response) {
 	try {
 		const ticketId = req.params.id;
-		const baseURL = "http://localhost:3000"; // env !!
+		const baseURL = externalUrl || `https://localhost:${port}`;
 		const ticketURL = `${baseURL}/ticket/${ticketId}`;
 
 		const qr = await generateQRCode(ticketURL);
